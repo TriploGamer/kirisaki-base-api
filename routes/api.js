@@ -414,6 +414,21 @@ res.json(resposta.semkey)
 }
 })
 
+router.get('/others/simi', async (req, res, next) => {
+txt = req.query.texto
+if (!txt) return res.json({ status : false, criador : `criador`, mensagem : "Coloque o parametro: texto"})
+var apikey = req.query.apikey;
+if(!apikey) return res.json(resposta.semkey)
+if(listkey.includes(apikey)){
+simi = await Kibar(`https://api.simsimi.net/v2/?text=${txt}&lc=pt`)
+res.json({
+success: `${simi.success}`
+})
+} else {
+res.json(resposta.semkey)
+}
+})
+
 router.get('/others/fazernick', async (req, res, next) => {
 txt = req.query.texto
 if (!txt) return res.json({ status : false, criador : `criador`, mensagem : "Coloque o parametro: texto"})
